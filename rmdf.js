@@ -1,10 +1,13 @@
 var df=function(x, y){
     var c=[ [100, 100, 50],
-            [250, 120, 110],
-            [250, 360, 20],
             [50, 340, 10],
-            [200, 220, -80],
-            [220, 220, 50]], m0=1e6;
+            [250, 360, 20],
+            [250, 120, 120],
+            [250, 120, -90],
+            [180, 200, -50],
+            // [200, 220, -80],
+            // [220, 220, 50]
+            ], m0=1e6;
     for(var i=0; i<c.length; i++){
         var cx=x - c[i][0], cy=y - c[i][1], r=c[i][2];
         // var m=this.sqrt(cx*cx + cy*cy) - c[i][2];
@@ -68,9 +71,9 @@ draw= function() {
     if(!nrd){return;}
     
     updatePixels();
-    noFill();noStroke();
+    noStroke();
     var x=vwr.x, y=vwr.y;
-    for(var i=0; i<15; i++){
+    for(var i=0; i<20; i++){
         var r=df(x, y);
         if(r>1e3 || r<1e-1){break;}
         fill(0x18773333);
@@ -82,6 +85,7 @@ draw= function() {
     }
     strokeWeight(1.2);
     stroke(0x44000000);
+    noFill();
     
     beginShape();
     vertex(vwr.x, vwr.y);
@@ -90,8 +94,8 @@ draw= function() {
     
     beginShape();
     for(var i=0; i<3; i++){
-        vertex( vwr.x + vwr.vx*(i&1)*20 + vwr.vy*(i-1)*5,
-                vwr.y + vwr.vy*(i&1)*20 - vwr.vx*(i-1)*5);
+        vertex( vwr.x + vwr.vx*((i&1) - 0.3)*20 + vwr.vy*(i-1)*7,
+                vwr.y + vwr.vy*((i&1) - 0.3)*20 - vwr.vx*(i-1)*7);
     }
     endShape(CLOSE);
     nrd=0;
